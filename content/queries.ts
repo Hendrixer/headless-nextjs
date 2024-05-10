@@ -6,6 +6,7 @@ import {
   CustomerPostQuery,
 } from "@/types"
 import { contentGqlFetcher } from "./fetch"
+import { revalidateTag } from "next/cache"
 
 export const getSlugsForPosts = async () => {
   const query = `#graphql
@@ -133,10 +134,10 @@ export const getContentForLogoWall = async () => {
   return data
 }
 
-export const getContentForHero = async () => {
+export const getContentForHero = async (isDraft = false) => {
   const query = `#graphql
   query HeroCollection {
-    heroCollection {
+    heroCollection(preview: ${isDraft ? "true" : "false"}) {
       items {
         title
         subtitle
@@ -151,7 +152,11 @@ export const getContentForHero = async () => {
     }
   }
   `
-  const data = await contentGqlFetcher<HeroQuery>({ query })
+  const data = await contentGqlFetcher<HeroQuery>({
+    query,
+    preview: isDraft,
+    tags: ["hero"],
+  })
 
   if (!data) {
     throw Error("oops")
