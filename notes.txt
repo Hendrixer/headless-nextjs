@@ -1,0 +1,26 @@
+`https://graphql.contentful.com/content/v1/spaces/:spaceid`,
+
+0. Init
+  a. Create contenful account
+  b. Tour
+  c. Add envs
+  d. GraphQL
+  e. create fetcher
+1. Dynamic content
+  z. data modeling
+  a. Hero
+  b. Sections
+  c. Links
+  d. Nav
+  c. Layout order
+2. Assets
+  a. Logo wall
+  b. Next.js image config
+3. Dynamic paths
+  a. Create Static paths
+  b. Pre render routes
+4. Preview
+  a. Add preview to fetcher
+  b. Setup preview contenful
+  c. Setup draft mode next.js route handlers
+  d. Preview Hero
