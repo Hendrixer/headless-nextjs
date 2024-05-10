@@ -1,4 +1,7 @@
-export const contentGqlFetcher = async (query: string, variables = {}, preview = false) => {
+export const contentGqlFetcher = async <T>({
+  query, variables = {}, preview = false
+}: {query: string, variables?:any, preview?: boolean }): Promise<T | undefined> => {
+
   const res = await fetch(`https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`, {
     method: 'POST',
     headers: {
@@ -16,5 +19,5 @@ export const contentGqlFetcher = async (query: string, variables = {}, preview =
     throw new Error('Could not get content')
   }
 
-  return data
+  return data as T
 }

@@ -17,9 +17,20 @@ import Client09 from "@/public/images/client-09.svg"
 // Import Swiper
 import Swiper, { Autoplay } from "swiper"
 import "swiper/swiper.min.css"
+<<<<<<< Updated upstream
 Swiper.use([Autoplay])
 
 export default function Clients() {
+=======
+import { LogoWallQuery } from "@/types"
+Swiper.use([Autoplay])
+
+export default function Clients({
+  content,
+}: {
+  content: LogoWallQuery["assetCollection"]["items"]
+}) {
+>>>>>>> Stashed changes
   useEffect(() => {
     const carousel = new Swiper(".clients-carousel", {
       slidesPerView: "auto",
@@ -51,6 +62,7 @@ export default function Clients() {
             <div className="clients-carousel swiper-container relative before:absolute before:inset-0 before:w-32 before:z-10 before:pointer-events-none before:bg-gradient-to-r before:from-slate-900 after:absolute after:inset-0 after:left-auto after:w-32 after:z-10 after:pointer-events-none after:bg-gradient-to-l after:from-slate-900">
               <div className="swiper-wrapper !ease-linear select-none items-center">
                 {/* Carousel items */}
+<<<<<<< Updated upstream
                 <div className="swiper-slide !w-auto">
                   <Image
                     src={Client01}
@@ -125,6 +137,18 @@ export default function Clients() {
                     height={28}
                   />
                 </div>
+=======
+                {content.map((logo) => (
+                  <div className="swiper-slide !w-auto" key={logo.url}>
+                    <Image
+                      src={logo.url}
+                      alt={logo.title}
+                      width={logo.width}
+                      height={logo.height}
+                    />
+                  </div>
+                ))}
+>>>>>>> Stashed changes
               </div>
             </div>
           </div>
