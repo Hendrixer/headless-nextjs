@@ -1,0 +1,26 @@
+export const staticContent = {
+  home: {
+    sections: [
+      { name: 'Hero' },
+      { name: 'Clients' },
+      { name: 'Features' },
+      { name: 'Features02' },
+      { name: 'Features03' },
+      { name: 'TestimonialsCarousel' },
+      { name: 'Features04' },
+      { name: 'Pricing' },
+      { name: 'Testimonials' },
+      { name: 'Cta' },
+    ],
+    Hero: {},
+    Clients: {},
+    Features: {},
+    Features02: {},
+    Features03: {},
+    TestimonialsCarousel: {},
+    Features04: {},
+    Pricing: {},
+    Testimonials: {},
+    Cta: {},
+  },
+}
