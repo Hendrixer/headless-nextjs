@@ -7,7 +7,7 @@ This repo is a companion to the [Headless CMSs course](https://frontendmasters.c
 
 ## Getting Started
 
-To being the course, clone the repo and check out the `step/0` branch. The main branch contains an example solution of the finall application build throughout the course. The other `step/X` branches are checkpoint branches during the course.
+To being the course, clone the repo and check out the `step/0` branch. The main branch contains an example solution of the final application build throughout the course. The other `step/X` branches are checkpoint branches during the course.
 
 ```bash
 git clone https://github.com/Hendrixer/headless-nextjs.git
