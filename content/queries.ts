@@ -8,7 +8,7 @@ import {
   CusomterPostQuery,
 } from "@/types"
 
-export const getCusomterPost = async (slug: string, isDraft = false) => {
+export const getCustomerPost = async (slug: string, isDraft = false) => {
   const query = `#graphql
     query CustomerPost($where: CustomerPostFilter, $limit: Int) {
       customerPostCollection(where: $where, limit: $limit, preview: ${
