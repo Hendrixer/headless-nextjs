@@ -10,7 +10,7 @@ const Animate = () => {
       duration: 1000,
       easing: "ease-out-cubic",
     })
-  })
+  }, [])
 
   return null
 }
