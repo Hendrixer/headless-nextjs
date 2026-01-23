@@ -24,3 +24,17 @@ export type MediaLogoQuery = {
         }[]
     }
 }
+
+export type HeaderNavQuery = {
+    navigationCollection: {
+        items: {
+            name: string
+            linksCollection: {
+                items: {
+                    label: string
+                    link: string
+                }[]
+            }
+        }[]
+    }
+}

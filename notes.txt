@@ -24,3 +24,54 @@
   b. Setup preview contenful
   c. Setup draft mode next.js route handlers
   d. Preview Hero
+
+#ASSET MEDIA CONTENTS - general
+query AssetCollection {
+   assetCollection {
+     items {
+       title
+       url
+       height
+       width
+     }
+   }
+ }
+
+#ASSET MEDIA CONTENTS - only dynamic files by name
+query AssetCollection($where: AssetFilter) {
+  assetCollection(where: $where) {
+    items {
+      title
+      url
+      width
+      height
+    }
+  }
+}
+
+{
+  "where": {
+    "title_contains": "client"
+  }
+}
+
+#Navigation header links
+query Query($where: NavigationFilter) {
+  navigationCollection(where: $where) {
+    items {
+      name
+      linksCollection {
+        items {
+          label
+          link
+        }
+      }
+    }
+  }
+}
+
+{
+  "where": {
+    "name": "Header"
+  }
+}

@@ -1,4 +1,5 @@
-import { HeroQuery, MediaLogoQuery } from '@/types'
+import "server-only"
+import { HeaderNavQuery, HeroQuery, MediaLogoQuery } from '@/types'
 import { contentGqlFetcher } from './fetch'
 
 export const getContentForHero = async () => {
@@ -26,7 +27,7 @@ export const getContentForHero = async () => {
     }
 
     return data
-}        
+}
 
 
 export const contentForLogoCarousel = async () => {
@@ -44,19 +45,52 @@ export const contentForLogoCarousel = async () => {
     `
 
     const data = await contentGqlFetcher<MediaLogoQuery>({
-        query, 
-        variables:{
+        query,
+        variables: {
             where: {
                 title_contains: "client"
             }
         }
-       
+
     })
 
-    
+
     if (!data) {
         throw Error("Oops")
     }
 
+    return data
+}
+
+
+export const getNavigationForHeader = async () => {
+    const query = `#graphql
+    query Query($where: NavigationFilter) {
+        navigationCollection(where: $where) {
+            items {
+                name
+                linksCollection {
+                    items {
+                        label
+                        link
+                    }
+                }
+            }
+        }
+    }
+    `
+    const data = await contentGqlFetcher<HeaderNavQuery>({
+        query,
+        variables: {
+            where: {
+                name: "Header"
+            }
+        }
+    })
+
+    if(!data){
+        throw Error("Oops")
+    }
+    
     return data
 }
