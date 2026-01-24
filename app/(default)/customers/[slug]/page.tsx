@@ -1,3 +1,5 @@
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
 export const metadata = {
   title: 'Customer Post - Stellar',
   description: 'Page description',
@@ -9,8 +11,25 @@ import Illustration from '@/public/images/page-illustration.svg'
 import CustomerBadge from '@/public/images/customer-badge.svg'
 import Particles from '@/components/particles'
 import RelatedPosts from './related-posts'
+import { getContentForCustomer, getContentSlugs } from '@/content/queries'
 
-export default function CustomerSingle() {
+type PageProps = {
+  params: { slug: string }
+}
+
+export async function generateStaticParams() {
+  const posts = await getContentSlugs()
+
+  if (posts instanceof Error) {
+    return []
+  }
+
+  return posts.customerPostCollection.items
+}
+
+export default async function CustomerSingle({params}: PageProps){
+  const data = await getContentForCustomer(params.slug)
+  const content = data.customerPostCollection.items[0].body.json;
   return (
     <section className="relative">
 
@@ -56,50 +75,8 @@ export default function CustomerSingle() {
 
                   {/* Post content */}
                   <div className="prose max-w-none text-slate-400 prose-headings:text-slate-50 prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4 prose-p:leading-relaxed prose-a:text-purple-500 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-50 prose-strong:font-medium prose-blockquote:pl-5 prose-blockquote:xl:-ml-5 prose-blockquote:border-l-2 prose-blockquote:border-purple-500 prose-blockquote:font-medium prose-blockquote:text-slate-300 prose-blockquote:italic">
-                    <p>
-                      <a href="#0">Airbnb</a> is an American San Francisco-based company operating an online marketplace for short- and long-term homestays and experiences. The company acts as a broker and charges a commission from each booking. The company was founded in 2008 by Brian Chesky, Nathan Blecharczyk, and Joe Gebbia. Airbnb is a shortened version of its original name, AirBedandBreakfast.com. Airbnb is the most well-known company for short-term housing rentals.
-                    </p>
-                    <p>
-                      Regulation of <strong>short-term rentals can include requirements for hosts to have business licenses</strong>, payment of hotel taxes and compliance with building, city and zoning standards. The hotel industry has lobbied for stricter regulations on short-term home rental and in addition to government-imposed restrictions, many homeowner associations also limit short term rentals.
-                    </p>
-                    <h2>Why do Airbnb need web governance policies?</h2>
-                    <p>
-                      Brian Chesky, Co-Founder and CEO at Airbnb:
-                    </p>
-                    <p>
-                      Through spending twenty years working with hots, Airbnb reflected that a lack of governance policy is a systemic issue with most short rentals. Without web governance, hosts usually experience a lack of process and accountability leading to:
-                    </p>
-                    <ul>
-                      <li>
-                        An organic sprawl of content, creating bloated websites
-                      </li>
-                      <li>
-                        Inconsistent, poorer quality content
-                      </li>
-                      <li>
-                        Weak user experience impacting the ability to support digital goals
-                      </li>
-                    </ul>
-                    <p>
-                      When these problems become acute enough, large website redesign projects begin. But <strong>without governance being put in place at the same time, the same problem will only happen again</strong>. Airbnb mitigate this risk by baking web governance into their working process with clients from strategy through to site launch and beyond.
-                    </p>
-                    <h2>Good governance leads to stronger results</h2>
-                    <p>
-                      With a strong process for content governance, the benefits are clear for both Airbnb as a company and their clients. Since its founding in 2008, Airbnb has become one of the most successful and valuable start-ups in the world, and has had a significant impact on the industry of renting homes and the hospitality industry more generally.
-                    </p>
-                    <blockquote>
-                      <p>
-                        “With a strong process for content governance, the benefits are clear for both Airbnb as a company and their clients. Since its founding in 2008, Airbnb has become one of the most successful and valuable start-ups in the world, and has had a significant impact on the industry of renting homes and the hospitality industry more generally.”
-                      </p>
-                    </blockquote>
-                    <p>
-                      Airbnb has also had a significant impact on the hospitality industry, particularly in the area of hotels and other traditional accommodation providers, which are often referred to as the HORECA industry. Some industry experts believe that Airbnb's rapid growth has disrupted the traditional HORECA model, and has led to a decline in revenue and occupancy rates for traditional hotels in certain markets.
-                    </p>
-                    <h2>How do you get organisation wide buy-in?</h2>
-                    <p>
-                      Mike reflected that the optimum time to introduce a web governance policy is during a website relaunch project because of the collective energy focused on creating a better user experience.
-                      Voltaire recommends starting governance policy in line with strategy kick-off.
-                    </p>
+
+                    {documentToReactComponents(content)}
                   </div>
                 </article>
 
